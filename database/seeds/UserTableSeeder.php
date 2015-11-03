@@ -7,6 +7,7 @@ use app\Role;
 use app\Group;
 use app\Organization;
 use app\District;
+use app\cmwn\Page;
 
 
 	class UserTableSeeder extends Seeder {
@@ -121,6 +122,18 @@ use app\District;
 					"description" => "Class:".$i." Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex ",
 				));
 			}
+
+            // Create pages
+            for ($i=1; $i<5; $i++) {
+                $page = \app\cmwn\Page::create(array(
+                    "title" => "title".$i,
+                    "description" => "description".$i,
+                    "avatar" => "/img/avatar.png",
+                ));
+
+
+            }
+
 
 		}
 

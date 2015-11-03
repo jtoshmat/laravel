@@ -20,6 +20,9 @@ class CreateAllTable extends Migration
 	    Schema::dropIfExists("groups");
 	    Schema::dropIfExists("roleables");
 	    Schema::dropIfExists("imageables");
+	    Schema::dropIfExists("page_user");
+	    Schema::dropIfExists("pages");
+
 
 	    Schema::dropIfExists("role_user");
 	    //Schema::dropIfExists("role_permissions");
@@ -139,6 +142,28 @@ class CreateAllTable extends Migration
 		    $table->foreign('guardian_id')->references('id')->on('users')->onDelete('cascade');
 		    $table->timestamps();
 	    });
+
+
+        Schema::create('pages', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->string('title');
+            $table->string('description');
+            $table->string('avatar');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('page_user', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->unsignedInteger('user_id')->unsigned();
+            $table->unsignedInteger('page_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('page_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -153,6 +178,8 @@ class CreateAllTable extends Migration
         Schema::dropIfExists("role_user");
         Schema::dropIfExists("permissions");
         Schema::dropIfExists("role_permissions");
+        Schema::dropIfExists("pages");
+        Schema::dropIfExists("page_user");
 
     }
 

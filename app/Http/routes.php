@@ -17,27 +17,33 @@ if(env('APP_ENV')=='local') {
 	});
 }
 
-Route::get('/', function () {
-	return view('welcome');
-});
+/*
+ * All public routes are registered here.
+ */
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
 	Route::get('/home', function () {
 	    return view('home');
 	});
 
+    Route::get('/aboutme', 'PublicController@aboutme');
 
-// Authentication routes...
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-// Registration routes...
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
+    // Authentication routes...
+    Route::get('auth/login', 'Auth\AuthController@getLogin');
+    Route::post('auth/login', 'Auth\AuthController@postLogin');
+    Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-$router->get("/awesome/sauce", ['middleware' => 'role:student,admin'], function () {
-	    echo('Awesome Sauce');
-	});
+    // Registration routes...
+    Route::get('auth/register', 'Auth\AuthController@getRegister');
+    Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+    $router->get("/awesome/sauce", ['middleware' => 'role:student,admin'], function () {
+            echo('Awesome Sauce');
+        });
 
 Route::group(['middleware' => 'auth'], function($router) {
 	/*
